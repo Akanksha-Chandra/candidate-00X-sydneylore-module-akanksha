@@ -4,8 +4,8 @@ A responsive, fixed-position raffle widget for SydneyLore.com featuring ticket t
 
 ## 🚀 Live Demo
 
-**Live URL**: [https://your-deployment-url.vercel.app](https://your-deployment-url.vercel.app)  
-**GitHub Repository**: [https://github.com/yourusername/candidate-001-sydneylore-module-raffle](https://github.com/yourusername/candidate-001-sydneylore-module-raffle)
+**Live URL**: (https://sydneylore-staging.vercel.app)
+**GitHub Repository**: (https://github.com/Akanksha-Chandra/candidate-00X-sydneylore-module-akanksha)
 
 ## ✨ Features
 
