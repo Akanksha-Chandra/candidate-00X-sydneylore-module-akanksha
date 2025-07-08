@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SydneyLore - Harbour City Stories</title>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <script src="raffle-widget-standalone.js"></script>
+    <style>
+        :root {
+            --primary-color: #008080;
+            --accent-color: #FFD700;
+            --text-dark: #333;
+            --text-light: #666;
+            --bg-light: #f8f9fa;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --shadow-hover: 0 8px 25px rgba(255, 215, 0, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: white;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            font-family: 'Raleway', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--text-dark);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0, 128, 128, 0.8), rgba(0, 128, 128, 0.8)), 
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><rect fill="%23008080" width="100%" height="100%"/><circle cx="200" cy="150" r="80" fill="%23FFD700" opacity="0.3"/><circle cx="800" cy="300" r="120" fill="%23FFD700" opacity="0.2"/><circle cx="1000" cy="100" r="60" fill="%23FFD700" opacity="0.4"/></svg>');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            padding: 4rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent 30%, rgba(255, 215, 0, 0.1) 70%);
+            animation: shimmer 3s ease-in-out infinite;
+        }
+
+        @keyframes shimmer {
+            0%, 100% { transform: translateX(-100%); }
+            50% { transform: translateX(100%); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero h1 {
+            font-family: 'Raleway', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: var(--accent-color);
+            color: var(--text-dark);
+            padding: 1rem 2rem;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 215, 0, 0.4);
+        }
+
+        /* CareDuel Banner */
+        .careduel-banner {
+            background: #f8f9fa;
+            border: 2px solid var(--accent-color);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            text-align: center;
+            animation: slideInUp 1s ease-out 0.5s both;
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .careduel-banner h3 {
+            font-family: 'Raleway', sans-serif;
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .careduel-banner a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .careduel-banner a:hover {
+            text-decoration: underline;
+            color: #006666;
+        }
+
+        /* Awards Panels */
+        .awards-section {
+            margin: 3rem 0;
+            animation: slideInUp 1s ease-out 0.7s both;
+        }
+
+        .awards-section h2 {
+            font-family: 'Raleway', sans-serif;
+            text-align: center;
+            color: var(--primary-color);
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .awards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .award-card {
+            background: white;
+            border: 1px solid var(--accent-color);
+            border-radius: 8px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .award-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .award-card:hover::before {
+            left: 100%;
+        }
+
+        .award-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .award-card h3 {
+            font-family: 'Raleway', sans-serif;
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .award-card p {
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+        }
+
+        .award-link {
+            display: inline-block;
+            background: var(--primary-color);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 2;
+        }
+
+        .award-link:hover {
+            background: #006666;
+            transform: scale(1.05);
+        }
+
+        /* Stories Section */
+        .stories-section {
+            margin: 3rem 0;
+            animation: slideInUp 1s ease-out 0.9s both;
+        }
+
+        .stories-section h2 {
+            font-family: 'Raleway', sans-serif;
+            text-align: center;
+            color: var(--primary-color);
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .story-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease;
+        }
+
+        .story-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .story-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .story-content {
+            padding: 1.5rem;
+        }
+
+        .story-content h3 {
+            font-family: 'Raleway', sans-serif;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .story-content p {
+            color: var(--text-light);
+            margin-bottom: 1rem;
+        }
+
+        .story-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        /* Raffle Widget */
+        .raffle-widget {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        .raffle-toggle {
+            width: 50px;
+            height: 50px;
+            background: var(--primary-color);
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+        }
+
+        .raffle-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(0, 128, 128, 0.3);
+        }
+
+        .raffle-panel {
+            position: absolute;
+            bottom: 60px;
+            right: 0;
+            width: 300px;
+            height: 350px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            padding: 1.5rem;
+            transform: translateY(20px);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .raffle-panel.active {
+            transform: translateY(0);
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .raffle-panel h3 {
+            font-family: 'Raleway', sans-serif;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .ticket-count {
+            background: var(--bg-light);
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .raffle-button {
+            width: 100%;
+            background: var(--accent-color);
+            color: var(--text-dark);
+            border: none;
+            padding: 1rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 1rem;
+        }
+
+        .raffle-button:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        .raffle-button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .payment-button {
+            width: 100%;
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 1rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .payment-button:hover {
+            background: #218838;
+            transform: translateY(-2px);
+        }
+
+        .status-message {
+            text-align: center;
+            margin-top: 1rem;
+            padding: 0.5rem;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+
+        .status-success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .status-error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 4rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .awards-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .stories-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .raffle-panel {
+                width: 280px;
+                height: 320px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav class="container">
+            <a href="#" class="logo">SydneyLore</a>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#stories">Stories</a></li>
+                <li><a href="#submit">Submit</a></li>
+                <li><a href="#about">About</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Discover Sydney's Hidden Stories</h1>
+                <p>Where locals and visitors share coastal tales, hidden laneways, and multicultural stories of Australia's Harbour City</p>
+                <a href="#stories" class="cta-button">Explore Stories</a>
+            </div>
+        </div>
+    </section>
+
+    <div class="container">
+        <!-- CareDuel Banner -->
+        <div class="careduel-banner">
+            <h3>Topic of the Week</h3>
+            <p>Join the conversation on ethics and kindness at <a href="https://careduel.com/topic-of-the-week" target="_blank">CareDuel</a></p>
+            <p style="font-size: 0.9rem; color: #666; margin-top: 0.5rem;">A gamified ethics debate platform where participants engage in real-world kindness challenges.</p>
+        </div>
+
+        <!-- Awards Section -->
+        <section class="awards-section">
+            <h2>Recognition & Awards</h2>
+            <div class="awards-grid">
+                <div class="award-card">
+                    <h3>Top216 Global Awards</h3>
+                    <p>Vote for impactful changemakers in our global people's choice awards ranking system.</p>
+                    <a href="https://top216.com/vote" target="_blank" class="award-link">Vote Now</a>
+                </div>
+                <div class="award-card">
+                    <h3>TheTop36 Rewards</h3>
+                    <p>Explore our digital rewards platform offering $7 content bundles with premium raffle prizes.</p>
+                    <a href="https://thetop36.com/highlights" target="_blank" class="award-link">Explore Rewards</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stories Section -->
+        <section class="stories-section" id="stories">
+            <h2>Latest Stories</h2>
+            <div class="stories-grid">
+                <div class="story-card">
+                    <div class="story-image">🌊 Harbour Bridge Story</div>
+                    <div class="story-content">
+                        <h3>The Bridge Builder's Secret</h3>
+                        <p>A fascinating tale about the hidden room inside the Sydney Harbour Bridge that few tourists ever discover...</p>
+                        <div class="story-meta">
+                            <span>By Sarah M.</span>
+                            <span>2 hours ago</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="story-card">
+                    <div class="story-image">🏛️ Opera House Mystery</div>
+                    <div class="story-content">
+                        <h3>The Opera House Underground</h3>
+                        <p>What lies beneath Sydney's most famous landmark? A local architect shares insider knowledge...</p>
+                        <div class="story-meta">
+                            <span>By David L.</span>
+                            <span>5 hours ago</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="story-card">
+                    <div class="story-image">🌺 Chinatown Culture</div>
+                    <div class="story-content">
+                        <h3>Hidden Laneway Treasures</h3>
+                        <p>Discover the multicultural gems tucked away in Sydney's forgotten corners and secret passages...</p>
+                        <div class="story-meta">
+                            <span>By Maria C.</span>
+                            <span>1 day ago</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Raffle Widget -->
+    <div class="raffle-widget">
+        <button class="raffle-toggle" id="raffleToggle">🎫</button>
+        <div class="raffle-panel" id="rafflePanel">
+            <h3>Sydney Stories Raffle</h3>
+            <div class="ticket-count" id="ticketCount">
+                ✅ You have 0 tickets.
+            </div>
+            <button class="raffle-button" id="joinRaffleBtn">Join the Raffle</button>
+            <button class="payment-button" id="paymentBtn">Proceed to Payment</button>
+            <div class="status-message" id="statusMessage"></div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 SydneyLore. Sharing stories, connecting cultures.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mock API responses for development
+        const mockAPI = {
+            raffleStatus: (userId) => {
+                const tickets = parseInt(localStorage.getItem(`tickets_${userId}`) || '0');
+                return Promise.resolve({ tickets });
+            },
+            
+            raffleEntry: () => {
+                const userId = '123';
+                const currentTickets = parseInt(localStorage.getItem(`tickets_${userId}`) || '0');
+                const newTickets = currentTickets + 1;
+                localStorage.setItem(`tickets_${userId}`, newTickets.toString());
+                return Promise.resolve({ success: true, tickets: newTickets });
+            },
+            
+            createCheckoutSession: (amount, currency) => {
+                return Promise.resolve({ sessionId: "test_session_123" });
+            },
+            
+            stripeWebhook: () => {
+                const userId = '123';
+                const currentTickets = parseInt(localStorage.getItem(`tickets_${userId}`) || '0');
+                const newTickets = currentTickets + 5; // 5 tickets for payment
+                localStorage.setItem(`tickets_${userId}`, newTickets.toString());
+                return Promise.resolve({ success: true, tickets: newTickets });
+            }
+        };
+
+        // Raffle Widget Functionality
+        class RaffleWidget {
+            constructor() {
+                this.userId = '123';
+                this.isExpanded = false;
+                this.tickets = 0;
+                
+                this.toggle = document.getElementById('raffleToggle');
+                this.panel = document.getElementById('rafflePanel');
+                this.ticketCount = document.getElementById('ticketCount');
+                this.joinBtn = document.getElementById('joinRaffleBtn');
+                this.paymentBtn = document.getElementById('paymentBtn');
+                this.statusMessage = document.getElementById('statusMessage');
+                
+                this.init();
+            }
+            
+            init() {
+                this.toggle.addEventListener('click', () => this.togglePanel());
+                this.joinBtn.addEventListener('click', () => this.joinRaffle());
+                this.paymentBtn.addEventListener('click', () => this.proceedToPayment());
+                
+                // Load initial ticket count
+                this.loadTicketCount();
+                
+                // Close panel when clicking outside
+                document.addEventListener('click', (e) => {
+                    if (!e.target.closest('.raffle-widget')) {
+                        this.closePanel();
+                    }
+                });
+            }
+            
+            togglePanel() {
+                this.isExpanded = !this.isExpanded;
+                this.panel.classList.toggle('active', this.isExpanded);
+            }
+            
+            closePanel() {
+                this.isExpanded = false;
+                this.panel.classList.remove('active');
+            }
+            
+            async loadTicketCount() {
+                try {
+                    const response = await mockAPI.raffleStatus(this.userId);
+                    this.tickets = response.tickets;
+                    this.updateTicketDisplay();
+                } catch (error) {
+                    this.showStatus('Error loading tickets', 'error');
+                }
+            }
+            
+            updateTicketDisplay() {
+                this.ticketCount.textContent = `✅ You have ${this.tickets} tickets.`;
+            }
+            
+            async joinRaffle() {
+                try {
+                    this.joinBtn.disabled = true;
+                    this.joinBtn.textContent = 'Joining...';
+                    
+                    const response = await mockAPI.raffleEntry();
+                    
+                    if (response.success) {
+                        this.tickets = response.tickets;
+                        this.updateTicketDisplay();
+                        this.showStatus('Successfully joined raffle!', 'success');
+                    } else {
+                        this.showStatus('❌ Error, try again.', 'error');
+                    }
+                } catch (error) {
+                    this.showStatus('❌ Error, try again.', 'error');
+                } finally {
+                    this.joinBtn.disabled = false;
+                    this.joinBtn.textContent = 'Join the Raffle';
+                }
+            }
+            
+            async proceedToPayment() {
+                try {
+                    this.paymentBtn.disabled = true;
+                    this.paymentBtn.textContent = 'Processing...';
+                    
+                    const response = await mockAPI.createCheckoutSession(100, 'usd');
+                    
+                    if (response.sessionId) {
+                        // Simulate Stripe redirect
+                        this.showStatus('Redirecting to payment...', 'success');
+                        
+                        // Simulate payment success after 2 seconds
+                        setTimeout(async () => {
+                            try {
+                                const webhookResponse = await mockAPI.stripeWebhook();
+                                if (webhookResponse.success) {
+                                    this.tickets = webhookResponse.tickets;
+                                    this.updateTicketDisplay();
+                                    this.showStatus('Payment successful! Tickets added.', 'success');
+                                } else {
+                                    this.showStatus('❌ Payment failed. Please try again.', 'error');
+                                }
+                            } catch (error) {
+                                this.showStatus('❌ Payment failed. Please try again.', 'error');
+                            }
+                        }, 2000);
+                    }
+                } catch (error) {
+                    this.showStatus('❌ Payment failed. Please try again.', 'error');
+                } finally {
+                    this.paymentBtn.disabled = false;
+                    this.paymentBtn.textContent = 'Proceed to Payment';
+                }
+            }
+            
+            showStatus(message, type) {
+                this.statusMessage.textContent = message;
+                this.statusMessage.className = `status-message status-${type}`;
+                this.statusMessage.style.display = 'block';
+                
+                setTimeout(() => {
+                    this.statusMessage.style.display = 'none';
+                }, 3000);
+            }
+        }
+
+        // Initialize the raffle widget when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            new RaffleWidget();
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe story cards for scroll animations
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.story-card').forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(card);
+            });
+        });
+    </script>
+</body>
+</html>
